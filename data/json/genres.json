@@ -1,0 +1,94 @@
+[
+  {
+    "genre_id": 2,
+    "name": "Point-and-click"
+  },
+  {
+    "genre_id": 4,
+    "name": "Fighting"
+  },
+  {
+    "genre_id": 5,
+    "name": "Shooter"
+  },
+  {
+    "genre_id": 7,
+    "name": "Music"
+  },
+  {
+    "genre_id": 8,
+    "name": "Platform"
+  },
+  {
+    "genre_id": 9,
+    "name": "Puzzle"
+  },
+  {
+    "genre_id": 10,
+    "name": "Racing"
+  },
+  {
+    "genre_id": 11,
+    "name": "Real Time Strategy (RTS)"
+  },
+  {
+    "genre_id": 12,
+    "name": "Role-playing (RPG)"
+  },
+  {
+    "genre_id": 13,
+    "name": "Simulator"
+  },
+  {
+    "genre_id": 14,
+    "name": "Sport"
+  },
+  {
+    "genre_id": 15,
+    "name": "Strategy"
+  },
+  {
+    "genre_id": 16,
+    "name": "Turn-based strategy (TBS)"
+  },
+  {
+    "genre_id": 24,
+    "name": "Tactical"
+  },
+  {
+    "genre_id": 25,
+    "name": "Hack and slash/Beat 'em up"
+  },
+  {
+    "genre_id": 26,
+    "name": "Quiz/Trivia"
+  },
+  {
+    "genre_id": 30,
+    "name": "Pinball"
+  },
+  {
+    "genre_id": 31,
+    "name": "Adventure"
+  },
+  {
+    "genre_id": 32,
+    "name": "Indie"
+  },
+  {
+    "genre_id": 33,
+    "name": "Arcade"
+  },
+  {
+    "genre_id": 34,
+    "name": "Visual Novel"
+  },
+  {
+    "genre_id": 35,
+    "name": "Card & Board Game"
+  },
+  {
+    "genre_id": 36,
+    "name": "MOBA"
+  }
+]
