@@ -23,7 +23,7 @@ offset = 0
 while True:
     print(f"Requesting games: offset={offset}, limit={batch_size}...")
     query = f"""
-    fields id, name, summary, first_release_date, genres, platforms;
+    fields id, name, summary, first_release_date, genres, platforms, keywords, involved_companies;
     where first_release_date != null;
     limit {batch_size};
     offset {offset};
