@@ -1,0 +1,265 @@
+==============================
+Cleaning companies.json
+==============================
+Loaded 50172 entries
+Removed 0 rows with missing values
+No duplicated company_id found
+
+Rows with duplicated names (case-insensitive):
+       company_id                                  name                            name_lower
+715          1154  International Computer Entertainment  international computer entertainment
+843          1152  International Computer Entertainment  international computer entertainment
+2130         2837                         D4 Enterprise                         d4 enterprise
+2162         2479                    SeeThrough Studios                    seethrough studios
+2369         2838                         D4 Enterprise                         d4 enterprise
+2671         3098                               Gamania                               gamania
+2741         3103                               Gamania                               gamania
+3054         4701                     KranX Productions                     kranx productions
+3225         4716               Immanitas Entertainment               immanitas entertainment
+3264         5161                     KranX Productions                     kranx productions
+3533         5310                       Subaltern Games                       subaltern games
+3700         5309                       Subaltern Games                       subaltern games
+4252         7032                          Will O'Neill                          will o'neill
+4272         7031                          Will O'Neill                          will o'neill
+4601         7722                             Channel 4                             channel 4
+4695         7709                         Games Foundry                         games foundry
+4703         7708                         Games Foundry                         games foundry
+4719         7679                        Giulia Airoldi                        giulia airoldi
+4744         7677                        Giulia Airoldi                        giulia airoldi
+4753         7724                             Channel 4                             channel 4
+4917         8005               Immanitas Entertainment               immanitas entertainment
+5249         8332                            Dreamatrix                            dreamatrix
+5927         8955                            Dreamatrix                            dreamatrix
+6758        10539                    SeeThrough Studios                    seethrough studios
+13048       19063                  IVI Publishing, Inc.                  ivi publishing, inc.
+14826       21747                  IVI Publishing, Inc.                  ivi publishing, inc.
+18353       26010                        The Micro User                        the micro user
+18435       26015                        The Micro User                        the micro user
+37566       51537                                Atomic                                atomic
+49064       69094                                Atomic                                atomic
+Final cleaned entries: 50157
+
+--- Mappings of removed IDs to retained IDs (by name):
+{
+  "69094": "51537",
+  "7724": "7722",
+  "2838": "2837",
+  "8955": "8332",
+  "3103": "3098",
+  "7708": "7709",
+  "7677": "7679",
+  "8005": "4716",
+  "1152": "1154",
+  "21747": "19063",
+  "5161": "4701",
+  "10539": "2479",
+  "5309": "5310",
+  "26015": "26010",
+  "7031": "7032"
+}
+
+--- List of IDs removed due to missing name:
+[]
+
+==============================
+Cleaning genres.json
+==============================
+Loaded 23 entries
+Removed 0 rows with missing values
+No duplicated genre_id found
+No duplicated names found
+Final cleaned entries: 23
+
+--- Mappings of removed IDs to retained IDs (by name):
+{}
+
+--- List of IDs removed due to missing name:
+[]
+
+==============================
+Cleaning platforms.json
+==============================
+Loaded 216 entries
+Removed 0 rows with missing values
+No duplicated platform_id found
+No duplicated names found
+Final cleaned entries: 216
+
+--- Mappings of removed IDs to retained IDs (by name):
+{}
+
+--- List of IDs removed due to missing name:
+[]
+
+==============================
+Cleaning keywords.json
+==============================
+Loaded 5770 entries
+Removed 0 rows with missing values
+No duplicated keyword_id found
+
+Rows with duplicated names (case-insensitive):
+      keyword_id          name    name_lower
+104           24  space combat  space combat
+2821       18526  space combat  space combat
+Final cleaned entries: 5769
+
+--- Mappings of removed IDs to retained IDs (by name):
+{
+  "18526": "24"
+}
+
+--- List of IDs removed due to missing name:
+[]
+
+==============================
+Cleaning game_involved_companies.json
+==============================
+Loaded 231787 entries
+Removed 0 rows with missing values
+
+Applying companies_id_mapping to involved_company_id...
+Mapped 5 involved_company_id values from old → new ID
+
+Duplicated rows removed:
+       game_id involved_company_id
+42093   138918              128366
+42094   138918              128365
+42106   156209              152131
+42107   156209              152132
+42118   147654              133772
+82729   138918              128366
+82730   138918              128365
+82735   147654              133772
+82742   156209              152131
+82743   156209              152132
+Removed 5 duplicated rows
+Final cleaned entries: 231782
+
+--- List of involved_company_id removed due to missing fields:
+[]
+
+==============================
+Cleaning game_genres.json
+==============================
+Loaded 449339 entries
+Removed 0 rows with missing values
+
+Duplicated rows removed:
+        game_id genre_id
+3613     304582       31
+75053    138918        4
+75054    138918       12
+75055    138918       25
+75056    138918       32
+75057    138918       33
+75084    156209       10
+75085    156209       13
+75086    156209       14
+75087    156209       32
+75101    147654        5
+75102    147654       32
+148230   138918        4
+148231   138918       12
+148232   138918       25
+148233   138918       32
+148234   138918       33
+148236   304582       31
+148247   147654        5
+148248   147654       32
+148268   156209       10
+148269   156209       13
+148270   156209       14
+148271   156209       32
+Removed 12 duplicated rows
+Final cleaned entries: 449327
+
+--- List of genre_id removed due to missing fields:
+[]
+
+==============================
+Cleaning game_platforms.json
+==============================
+Loaded 425855 entries
+Removed 0 rows with missing values
+
+Duplicated rows removed:
+        game_id platform_id
+3312     304582           6
+71737    138918          48
+71738    138918           6
+71739    138918          49
+71740    138918         130
+71773    156209           6
+71789    147654          48
+71790    147654           6
+71791    147654         167
+71792    147654          49
+71793    147654         130
+142997   138918          48
+142998   138918           6
+142999   138918          49
+143000   138918         130
+143003   304582           6
+143009   147654          48
+143010   147654           6
+143011   147654         167
+143012   147654          49
+143013   147654         130
+143029   156209           6
+Removed 11 duplicated rows
+Final cleaned entries: 425844
+
+--- List of platform_id removed due to missing fields:
+[]
+
+==============================
+Cleaning game_keywords.json
+==============================
+Loaded 544391 entries
+Removed 0 rows with missing values
+
+Applying keywords_id_mapping to keyword_id...
+Mapped 52 keyword_id values from old → new ID
+
+Duplicated rows removed:
+        game_id keyword_id
+118361   156209        578
+243320   156209        578
+Removed 1 duplicated rows
+Final cleaned entries: 544390
+
+--- List of keyword_id removed due to missing fields:
+[]
+
+==============================
+Cleaning involved_companies_raw.json
+==============================
+Loaded 231781 entries
+Removed 0 duplicated rows
+
+Rows removed due to non-existent company (examples):
+          id  company  developer   game  porting  publisher  supporting
+6228   15571     2838      False   6556    False       True       False
+7444   17684     3103      False   7496    False       True       False
+10163  23051     5161      False   9666    False       True       False
+11597  25762     1152      False  11849    False       True       False
+13157  29363     7708      False  15409    False       True       False
+Removed 29 rows due to non-existent company values
+Final cleaned entries: 231752
+
+==============================
+Cleaning steam_reviews.json
+==============================
+Loaded 22262 entries
+
+Rows removed where all review counts are zero (examples):
+    game_id steam_appid  total_positive  total_negative  total_reviews
+2    347577     3442310               0               0              0
+6    355563     3880500               0               0              0
+7    344029     2738530               0               0              0
+8    343293     3588540               0               0              0
+10   160308     1643922               0               0              0
+Removed 6134 rows where all review counts are zero
+Removed 0 rows where total_reviews did not match sum
+Final cleaned entries: 16128
