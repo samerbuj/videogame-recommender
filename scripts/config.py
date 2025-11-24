@@ -1,7 +1,7 @@
 import requests
 
-CLIENT_ID = "ADD-YOUR-TWITCH-CLIENT-ID-HERE"
-CLIENT_SECRET = "ADD-YOUR-SECRET-HERE"
+CLIENT_ID = "xvwunh7y0a10ew27jcvji9oicxlkgj"
+CLIENT_SECRET = "3t1i06bm27fmg22drjbpddjosfk461"
 
 TOKEN_URL = "https://id.twitch.tv/oauth2/token"
 
