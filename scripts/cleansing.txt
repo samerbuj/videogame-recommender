@@ -263,3 +263,29 @@ Rows removed where all review counts are zero (examples):
 Removed 6134 rows where all review counts are zero
 Removed 0 rows where total_reviews did not match sum
 Final cleaned entries: 16128
+
+==============================
+Cleaning games.json
+==============================
+Loaded 251300 entries
+Removed 0 rows with missing values
+
+Rows with duplicated game_id:
+       game_id  igdb_id                            name                                            summary  first_release_date steam_appid
+1834    304582   304582                  Meadow Assault  Embark on an epic journey of survival and adve...          1720137600        None
+38516   138918   138918                   Cubers: Arena  SLASH, SMASH, SUMMON and BOUNCE your way to fr...          1595894400        None
+38530   156209   156209             Tank Zombie Smasher  Tank Zombie Smasher you control a tank on the ...          1626739200        None
+38539   147654   147654  Strike Force 2: Terrorist Hunt  A tropical paradise turned into a warzone. One...          1606176000        None
+73803   138918   138918                   Cubers: Arena  SLASH, SMASH, SUMMON and BOUNCE your way to fr...          1595894400        None
+73805   304582   304582                  Meadow Assault  Embark on an epic journey of survival and adve...          1720137600        None
+73810   147654   147654  Strike Force 2: Terrorist Hunt  A tropical paradise turned into a warzone. One...          1606176000        None
+73821   156209   156209             Tank Zombie Smasher  Tank Zombie Smasher you control a tank on the ...          1626739200        None
+Removed 8 duplicated game_id rows
+
+Games with null steam_appid: 229012
+Final cleaned entries: 251296
+
+==============================
+Generating game_overview.json
+==============================
+Final game overview entries: 251296
