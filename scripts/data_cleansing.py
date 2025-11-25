@@ -45,7 +45,7 @@ PATH_INVOLVED_COMPANIES_RAW = DATA_FOLDER / "involved_companies_raw.json"
 PATH_STEAM_REVIEWS = DATA_FOLDER / "steam_reviews.json"
 
 # Save Flag
-SAVE_NEW_DATASET = False
+SAVE_NEW_DATASET = True
 
 
 
@@ -124,7 +124,7 @@ def clean_companies(input_path=PATH_COMPANIES, output_suffix=OUTPUT_SUFFIX):
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -203,7 +203,7 @@ def clean_genres(input_path=PATH_GENRES, output_suffix=OUTPUT_SUFFIX):
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -282,7 +282,7 @@ def clean_platforms(input_path=PATH_PLATFORMS, output_suffix=OUTPUT_SUFFIX):
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -361,7 +361,7 @@ def clean_keywords(input_path=PATH_KEYWORDS, output_suffix=OUTPUT_SUFFIX):
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -434,7 +434,7 @@ def clean_game_involved_companies(input_path=PATH_GAME_INVOLVED_COMPANIES, outpu
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -507,7 +507,7 @@ def clean_game_genres(input_path=PATH_GAME_GENRES, output_suffix=OUTPUT_SUFFIX):
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -580,7 +580,7 @@ def clean_game_platforms(input_path=PATH_GAME_PLATFORMS, output_suffix=OUTPUT_SU
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -653,7 +653,7 @@ def clean_game_keywords(input_path=PATH_GAME_KEYWORDS, output_suffix=OUTPUT_SUFF
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -700,7 +700,7 @@ def clean_involved_companies_raw(input_path=PATH_INVOLVED_COMPANIES_RAW, output_
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -747,7 +747,7 @@ def clean_steam_reviews(input_path=PATH_STEAM_REVIEWS, output_suffix=OUTPUT_SUFF
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -809,7 +809,7 @@ def clean_games(input_path=PATH_GAMES, output_suffix=OUTPUT_SUFFIX):
     if SAVE_NEW_DATASET:
         output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved cleaned file to: {output_path}\n")
 
 
@@ -861,13 +861,25 @@ def generate_game_overview_dataset():
 
     genre_text = join_names(game_genres, "genre_id", genre_map)
     platform_text = join_names(game_platforms, "platform_id", platform_map)
-    company_text = join_names(game_involved_companies, "involved_company_id", company_map)
+    involved_raw_path = DATA_FOLDER / "clean" / "involved_companies_raw_clean.json"
+    involved_raw = pd.read_json(involved_raw_path)
+
+    # Keep only records where any of the involvement flags is True
+    involved_filtered = involved_raw[
+        involved_raw[["developer", "porting", "publisher", "supporting"]].any(axis=1)
+    ]
+
+    involved_filtered["company"] = involved_filtered["company"].astype(str)
+    involved_filtered["name"] = involved_filtered["company"].map(company_map)
+
+    # Group by game ID and join company names
+    company_text = involved_filtered.groupby("game")["name"].apply(lambda x: ", ".join(sorted(set(x.dropna()))))
+    company_text.index.name = "game_id"
     keyword_text = join_names(game_keywords, "keyword_id", keyword_map)
 
     # Merge with games
     df = games.copy()
     df["game_id"] = df["game_id"].astype(int)
-    df["first_release_date"] = pd.to_datetime(df["first_release_date"], unit="s", errors="coerce").dt.date
 
     df = df.set_index("game_id")
     df["genres"] = genre_text
@@ -879,8 +891,11 @@ def generate_game_overview_dataset():
     reviews = reviews.copy()
     reviews["game_id"] = reviews["game_id"].astype(int)
     reviews = reviews.set_index("game_id")
-    reviews["steam_rating"] = (reviews["total_positive"] - reviews["total_negative"]) / reviews["total_reviews"]
+    reviews["steam_rating"] = reviews["total_positive"] / reviews["total_reviews"]
     df["steam_rating"] = reviews["steam_rating"]
+
+    # Remove entries with null steam_rating
+    df = df[df["steam_rating"].notna()]
 
     # Final columns
     df = df.reset_index()[["game_id", "name", "summary", "first_release_date", "genres", "platforms", "companies", "keywords", "steam_rating"]]
@@ -890,7 +905,7 @@ def generate_game_overview_dataset():
     # Save
     if SAVE_NEW_DATASET:
         output_path = DATA_FOLDER / "clean" / "game_overview.json"
-        df.to_json(output_path, orient="records", indent=2)
+        df.to_json(output_path, orient="records", indent=2, force_ascii=False)
         print(f"Saved overview dataset to: {output_path}")
 
 
