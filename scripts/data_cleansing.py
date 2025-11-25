@@ -1,4 +1,3 @@
-
 #import libraries
 import json
 from pathlib import Path
@@ -17,6 +16,8 @@ platforms_ids = []
 keywords_id_mapping = {}
 keywords_null_ids = []
 keywords_ids = []
+games_null_ids=[]
+games_ids=[]
 
 game_involved_companies_null_ids = []
 game_genres_null_ids = []
@@ -32,6 +33,7 @@ PATH_COMPANIES = DATA_FOLDER / "companies.json"
 PATH_GENRES = DATA_FOLDER / "genres.json"
 PATH_PLATFORMS = DATA_FOLDER / "platforms.json"
 PATH_KEYWORDS = DATA_FOLDER / "keywords.json"
+PATH_GAMES = DATA_FOLDER / "games.json"
 
 PATH_GAME_GENRES = DATA_FOLDER / "game_genres.json"
 PATH_GAME_INVOLVED_COMPANIES = DATA_FOLDER / "game_involved_companies.json"
@@ -750,6 +752,148 @@ def clean_steam_reviews(input_path=PATH_STEAM_REVIEWS, output_suffix=OUTPUT_SUFF
 
 
 
+# ==============================
+# 11. GAMES
+# ==============================
+
+def clean_games(input_path=PATH_GAMES, output_suffix=OUTPUT_SUFFIX):
+    print("\n==============================")
+    print("Cleaning games.json")
+    print("==============================")
+
+    # Load JSON
+    try:
+        df = pd.read_json(input_path)
+    except Exception as e:
+        print(f"Error loading {input_path}: {e}")
+        return
+
+    print(f"Loaded {len(df)} entries")
+
+    # Identify rows with missing values
+    na_rows = df[df[["game_id", "name"]].isna().any(axis=1)]
+    if not na_rows.empty:
+        print("\nRows removed due to missing values:")
+        print(na_rows)
+        games_null_ids.extend(na_rows["game_id"].dropna().astype(str).tolist())
+
+    # Remove rows with missing game_id or name
+    before_na = len(df)
+    df = df.dropna(subset=["game_id", "name"])
+    print(f"Removed {before_na - len(df)} rows with missing values")
+
+    # Check and remove duplicate game_id entries
+    duplicate_id_rows = df[df["game_id"].duplicated(keep=False)]
+    if not duplicate_id_rows.empty:
+        print("\nRows with duplicated game_id:")
+        print(duplicate_id_rows)
+        df = df.drop_duplicates(subset=["game_id"])
+        print(f"Removed {len(duplicate_id_rows)} duplicated game_id rows")
+    else:
+        print("No duplicated game_id found")
+
+    # Convert first_release_date from UNIX timestamp to datetime
+    df["first_release_date"] = pd.to_datetime(df["first_release_date"], unit="s", errors="coerce")
+
+    # Find rows with null steam_appid
+    null_steam_rows = df[df["steam_appid"].isna()]
+    if not null_steam_rows.empty:
+        print(f"\nGames with null steam_appid: {len(null_steam_rows)}")
+        # print(null_steam_rows)
+    else:
+        print("No null steam_appid found")
+
+    print(f"Final cleaned entries: {len(df)}")
+
+    # Save cleaned file
+    if SAVE_NEW_DATASET:
+        output_path = input_path.parent / "clean" / (input_path.stem + output_suffix)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        df.to_json(output_path, orient="records", indent=2)
+        print(f"Saved cleaned file to: {output_path}\n")
+
+
+
+# ==============================
+# 12. Generate GAME_OVERVIEW dataset
+# ==============================
+
+def generate_game_overview_dataset():
+    print("\n==============================")
+    print("Generating game_overview.json")
+    print("==============================")
+
+    # Paths
+    path_games = DATA_FOLDER / "clean" / "games_clean.json"
+    path_genres = DATA_FOLDER / "clean" / "genres_clean.json"
+    path_platforms = DATA_FOLDER / "clean" / "platforms_clean.json"
+    path_companies = DATA_FOLDER / "clean" / "companies_clean.json"
+    path_keywords = DATA_FOLDER / "clean" / "keywords_clean.json"
+    path_game_genres = DATA_FOLDER / "clean" / "game_genres_clean.json"
+    path_game_platforms = DATA_FOLDER / "clean" / "game_platforms_clean.json"
+    path_game_involved_companies = DATA_FOLDER / "clean" / "game_involved_companies_clean.json"
+    path_game_keywords = DATA_FOLDER / "clean" / "game_keywords_clean.json"
+    path_reviews = DATA_FOLDER / "clean" / "steam_reviews_clean.json"
+
+    # Load data
+    games = pd.read_json(path_games)
+    genres = pd.read_json(path_genres)
+    platforms = pd.read_json(path_platforms)
+    companies = pd.read_json(path_companies)
+    keywords = pd.read_json(path_keywords)
+    game_genres = pd.read_json(path_game_genres)
+    game_platforms = pd.read_json(path_game_platforms)
+    game_involved_companies = pd.read_json(path_game_involved_companies)
+    game_keywords = pd.read_json(path_game_keywords)
+    reviews = pd.read_json(path_reviews)
+
+    # Helper: map ids to text
+    genre_map = dict(zip(genres["genre_id"].astype(str), genres["name"]))
+    platform_map = dict(zip(platforms["platform_id"].astype(str), platforms["name"]))
+    company_map = dict(zip(companies["company_id"].astype(str), companies["name"]))
+    keyword_map = dict(zip(keywords["keyword_id"].astype(str), keywords["name"]))
+
+    def join_names(df, id_col, map_dict):
+        df = df.copy()
+        df[id_col] = df[id_col].astype(str)
+        df["name"] = df[id_col].map(map_dict)
+        return df.groupby("game_id")["name"].apply(lambda x: ", ".join(sorted(set(x.dropna()))))
+
+    genre_text = join_names(game_genres, "genre_id", genre_map)
+    platform_text = join_names(game_platforms, "platform_id", platform_map)
+    company_text = join_names(game_involved_companies, "involved_company_id", company_map)
+    keyword_text = join_names(game_keywords, "keyword_id", keyword_map)
+
+    # Merge with games
+    df = games.copy()
+    df["game_id"] = df["game_id"].astype(int)
+    df["first_release_date"] = pd.to_datetime(df["first_release_date"], unit="s", errors="coerce").dt.date
+
+    df = df.set_index("game_id")
+    df["genres"] = genre_text
+    df["platforms"] = platform_text
+    df["companies"] = company_text
+    df["keywords"] = keyword_text
+
+    # Add steam score
+    reviews = reviews.copy()
+    reviews["game_id"] = reviews["game_id"].astype(int)
+    reviews = reviews.set_index("game_id")
+    reviews["steam_rating"] = (reviews["total_positive"] - reviews["total_negative"]) / reviews["total_reviews"]
+    df["steam_rating"] = reviews["steam_rating"]
+
+    # Final columns
+    df = df.reset_index()[["game_id", "name", "summary", "first_release_date", "genres", "platforms", "companies", "keywords", "steam_rating"]]
+
+    print(f"Final game overview entries: {len(df)}")
+
+    # Save
+    if SAVE_NEW_DATASET:
+        output_path = DATA_FOLDER / "clean" / "game_overview.json"
+        df.to_json(output_path, orient="records", indent=2)
+        print(f"Saved overview dataset to: {output_path}")
+
+
 
 # ==============================
 # MAIN
@@ -766,3 +910,5 @@ if __name__ == "__main__":
     clean_game_keywords()
     clean_involved_companies_raw()
     clean_steam_reviews()
+    clean_games()
+    generate_game_overview_dataset()
