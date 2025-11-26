@@ -53,6 +53,8 @@ texts = df["text"].tolist()
 embeddings = model.encode(texts, convert_to_numpy=True, show_progress_bar=True)
 
 print(embeddings.shape)
+embeddings = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
+
 
 np.save("embeddings.npy", embeddings)
 df.to_pickle("games_df.pkl")  # preserves dataframe structure, strings, lists, etc.
